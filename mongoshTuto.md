@@ -2,16 +2,30 @@
 
 - To Enter single data:
   </br>
-  `tsx db.test.insertOne({name:"python Master"})`</br>
+  ```tsx
+   db.test.insertOne({name:"python Master"})
+   ```
 - To enter multiple data:</br>
-  `tsx db.test.insertMany([{ name: "Complete Web Development" }, { name: "Data Anlysis" }])`</br>
+  ```tsx
+   db.test.insertMany([{ name: "Complete Web Development" }, { name: "Data Anlysis" }])
+   ```
 - Find data: To Get Single Data</br>
-  `tsx db.test.findOne({age:17})`</br>
+  ```tsx
+   db.test.findOne({age:17})
+   ```
 - Find data: To Get Many Data</br>
-  `tsx db.test.find({age:17})`</br>
-- Find with field filtering (it will works with findOne)</br>
-  `tsx  db.test.find({gender:"Female"},{gender:1})`</br>
-- Field Filtering</br>
-  `tsx db.test.find({ gender: "Female" }, { name: 1, gender: 1, email: 1, phone: 1 })`</br>
-  Or</br>
-  `tsx db.test.find({ gender: "Female" }).project({name:1,email:1})`
+  ```tsx
+   db.test.find({age:17})
+   ```
+- Find with field filtering (it will works with findOne)
+  ```tsx
+  db.test.find({gender:"Female"},{gender:1}) 
+  ```
+- Field Filtering
+  ```tsx
+   db.test.find({ gender: "Female" }, { name: 1, gender: 1, email: 1, phone: 1 })
+   ```
+  Or
+  ```tsx
+   db.test.find({ gender: "Female" }).project({name:1,email:1})
+   ```
