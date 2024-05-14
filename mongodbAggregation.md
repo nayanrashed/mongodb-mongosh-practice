@@ -210,3 +210,83 @@ db.test.aggregate([
     }
 ])
 ```
+```tsx
+db.test.aggregate([
+    //stage-1
+    {
+        $bucket: {
+            groupBy: "$age",
+            boundaries: [20, 40, 60, 80],
+            default: "Over 80",
+            output: {
+                count: {
+                    $sum: 1
+                },
+                nameList: { $push: "$name" }
+            }
+        }
+    },
+    //stage-2
+    {
+        $sort: { count: -1 }
+    },
+    //stage-3
+    {
+        $limit: 3
+    },
+    //stage-4
+    {
+        $project: { count: 1 }
+    }
+])
+```
+- $facet is used to create multiple pipe Line
+```tsx
+db.test.aggregate([
+    {
+        $facet: {
+            //Pipe Line-1
+            "friendsCount": [
+                //stage-1
+                { $unwind: "$friends" },
+                //stage-2
+                { $group: { _id: "$friends", count: { $sum: 1 } } }
+            ],
+            //Pipe Line-2
+            "educationCount": [
+                //stage-1
+                { $unwind: "$education" },
+                //stage-2
+                { $group: { _id: "$education", count: { $sum: 1 } } },
+            ],
+            //Pipe Line-3
+            "skilCount": [
+                //stage-1
+                { $unwind: "$skills" },
+                //stage-2
+                { $group: { _id: "$skills", count: { $sum: 1 } } }
+            ]
+        }
+    }
+])
+```
+- LookUP
+```tsx
+db.orders.aggregate([
+    {
+        $lookup: {
+            from: "test",
+            localField: "userId",
+            foreignField: "_id",
+            as: "client"
+        }
+    }
+])
+```
+- search and text intexing
+```tsx
+db.getCollection("massive-data").createIndex({about:"text"})
+```
+```tsx
+db.getCollection("massive-data").find({$text:{$search:"dolor"}})
+```
