@@ -289,3 +289,88 @@ db.test.updateOne(
   }
 );
 ```
+
+-	$unSet (to remove a field)
+```tsx 
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $unset: { age: 1 }
+    }
+)
+```
+-	To delete an elememt from an array(-1 for first element, 1 for last element
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $pop: { friends: -1 }
+    }
+)
+```
+-	$pull
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $pull: { friends:"Fahim Ahammed Firoz" }
+    }
+)
+```
+-	$pullAll
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $pullAll: { friends: ["Mir Hussain", "Tanmoy Parvez"] }
+    }
+)
+```
+-	$set examples
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $set: {
+            "address.city": "Dhaka",
+            "address.country": "Bangladesh"
+        }
+    }
+)
+```
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065"), "education.major": "Art" },
+    {
+        $set: {
+            "education.$.major": "CSE"
+        }
+    }
+)
+```
+-	$inc 
+```tsx
+db.test.updateOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") },
+    {
+        $inc: {
+            age: 1
+        }
+    }
+)
+```
+-	To delete a document
+```tsx
+db.test.deleteOne(
+    { _id: ObjectId("6406ad63fc13ae5a40000065") }
+)
+```
+-	To create a collection
+```tsx
+db.createCollection('post')
+```
+-	To Delete a collection
+```tsx
+db.post.drop({ writeConcern: { w: 1 } })
+```
+
